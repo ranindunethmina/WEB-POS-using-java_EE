@@ -1,15 +1,14 @@
-package lk.ijse.gdse.pos.dto;
+package lk.ijse.gdse.pos.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ItemDTO {
+
+public class Item {
     private String itemId;
     private String itemName;
     private double price;
