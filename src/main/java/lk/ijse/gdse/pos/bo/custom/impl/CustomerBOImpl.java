@@ -20,8 +20,8 @@ public class CustomerBOImpl implements CustomerBO {
         try(Connection connection = SQLUtil.getConnection()) {
             customerDAO.setConnection(connection);
             return customerDAO.save(new Customer(
-                    customerDTO.getId(),
-                    customerDTO.getName(),
+                    customerDTO.getCustomerId(),
+                    customerDTO.getFirstName(),
                     customerDTO.getAddress(),
                     customerDTO.getMobile()
             ));
@@ -41,8 +41,8 @@ public class CustomerBOImpl implements CustomerBO {
         try (Connection connection = SQLUtil.getConnection()) {
             customerDAO.setConnection(connection);
             return customerDAO.update(customerId,
-                    new Customer(customerDTO.getId(),
-                            customerDTO.getName(),
+                    new Customer(customerDTO.getCustomerId(),
+                            customerDTO.getFirstName(),
                             customerDTO.getAddress(),
                             customerDTO.getMobile()
                     ));
@@ -57,8 +57,8 @@ public class CustomerBOImpl implements CustomerBO {
             List<CustomerDTO> allCustomersDTO = new ArrayList<>();
             for (Customer customer : allCustomers) {
                 allCustomersDTO.add(new CustomerDTO(
-                        customer.getId(),
-                        customer.getName(),
+                        customer.getCustomerId(),
+                        customer.getFirstName(),
                         customer.getAddress(),
                         customer.getMobile()
                 ));

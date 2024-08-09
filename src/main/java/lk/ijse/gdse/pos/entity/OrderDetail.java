@@ -7,10 +7,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-
-public class Customer {
-    private String customerId;
-    private String firstName;
-    private String address;
-    private String mobile;
+public class OrderDetail {
+    private String orderId;
+    private String itemId;
+    private int quantity;
+    private double untPrice;
 }

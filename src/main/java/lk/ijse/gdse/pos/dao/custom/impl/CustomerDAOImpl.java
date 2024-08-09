@@ -31,8 +31,8 @@ public final class CustomerDAOImpl implements CustomerDAO{
     @Override
     public boolean save(Customer customer) throws SQLException {
         return SQLUtil.execute(connection, "INSERT INTO customer VALUES(?,?,?,?)",
-                customer.getId(),
-                customer.getName(),
+                customer.getCustomerId(),
+                customer.getFirstName(),
                 customer.getAddress(),
                 customer.getMobile());
     }
@@ -40,8 +40,8 @@ public final class CustomerDAOImpl implements CustomerDAO{
     @Override
     public boolean update(String id, Customer customer) throws SQLException {
         return SQLUtil.execute(connection, "UPDATE customer SET c_Id=?, firstName=?, address=?, mobile=? WHERE c_Id=?",
-                customer.getId(),
-                customer.getName(),
+                customer.getCustomerId(),
+                customer.getFirstName(),
                 customer.getAddress(),
                 customer.getMobile(),
                 id);

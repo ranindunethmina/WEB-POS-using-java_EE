@@ -53,20 +53,20 @@ public class CustomerController extends HttpServlet {
             logger.debug("Attempting to Validate customer:");
 
             //Validate customer
-//            List<String> validationErrors= ValidationUtil.validateCustomer(customer);
-//            if (!validationErrors.isEmpty()) {
-//                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-//                writer.write("Validation failed: " + String.join(", ", validationErrors));
-//                return;
-//            }
+            List<String> validationErrors= ValidationUtil.validateCustomer(customer);
+            if (!validationErrors.isEmpty()) {
+                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                writer.write("Validation failed: " + String.join(", ", validationErrors));
+                return;
+            }
 
             boolean isSaved = customerBO.saveCustomer(customer);
             if (isSaved) {
-                logger.info("Customer saved successfully: {}", customer.getId());
+                logger.info("Customer saved successfully: {}", customer.getCustomerId());
                 resp.setStatus(HttpServletResponse.SC_CREATED);
                 writer.write("Customer Saved Successfully");
             } else {
-                logger.warn("Failed to save customer: {}", customer.getId());
+                logger.warn("Failed to save customer: {}", customer.getCustomerId());
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 writer.write("Failed to Save Customer");
             }
@@ -128,7 +128,6 @@ public class CustomerController extends HttpServlet {
                 writer.write("Validation failed: " + String.join(", ", validationErrors));
                 return;
             }
-
 
             if (isUpdated) {
                 logger.info("Customer updated successfully: {}", customerId);

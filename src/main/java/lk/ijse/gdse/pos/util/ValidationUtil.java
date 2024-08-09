@@ -2,6 +2,8 @@ package lk.ijse.gdse.pos.util;
 
 import lk.ijse.gdse.pos.dto.CustomerDTO;
 import lk.ijse.gdse.pos.dto.ItemDTO;
+import lk.ijse.gdse.pos.dto.OrderDTO;
+import lk.ijse.gdse.pos.dto.OrderDetailDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,11 +12,11 @@ public class ValidationUtil {
     public static List<String> validateCustomer(CustomerDTO customer) {
         List<String> errors = new ArrayList<>();
 
-        if (customer.getId() == null || !customer.getId().startsWith("C")) {
+        if (customer.getCustomerId() == null || !customer.getCustomerId().startsWith("C")) {
             errors.add("Customer ID must start with 'C'");
         }
 
-        if (customer.getName()==null) {
+        if (customer.getFirstName()==null) {
             errors.add("Name doesnt found");
         }
 
@@ -54,52 +56,54 @@ public class ValidationUtil {
         return errors;
     }
 
-//    public static List<String> validateOrder(OrderDTO order) {
-//        List<String> errors = new ArrayList<>();
-//
-//        if (order.getOrderId() == null ||  !order.getOrderId().startsWith("O")) {
-//            errors.add("Order ID must start with 'O' followed by 3 digits");
-//        }
-//
-//        if (order.getCustomerId() == null || !order.getCustomerId().startsWith("C")) {
-//            errors.add("Customer ID in order must start with 'C'");
-//        }
-//
-//        if (order.getSubtotal() < 0) {
-//            errors.add("Subtotal must be non-negative");
-//        }
-//
-//        if (order.getDiscount() < 0 || order.getDiscount() > order.getSubtotal()) {
-//            errors.add("Discount must be non-negative and not exceed subtotal");
-//        }
-//
-//        if (order.getAmount_payed() < 0 || order.getAmount_payed() < (order.getSubtotal() - order.getDiscount())) {
-//            errors.add("Amount paid must be non-negative and at least equal to (subtotal - discount)");
-//        }
-//
-//        if (order.getOrderDetails() == null || order.getOrderDetails().isEmpty()) {
-//            errors.add("Order must contain at least one order detail");
-//        } else {
-//            for (int i = 0; i < order.getOrderDetails().size(); i++) {
-//                OrderDetailDTO detail = order.getOrderDetails().get(i);
-//                errors.addAll(validateOrderDetail(detail, i));
-//            }
-//        }
-//
-//        return errors;
-//    }
-//
-//    private static List<String> validateOrderDetail(OrderDetailDTO detail, int index) {
-//        List<String> errors = new ArrayList<>();
-//        if (detail.getItemId() == null ||  !detail.getItemId().startsWith("I")) {
-//            errors.add("Item ID in order detail " + (index + 1) + " must start with 'I' followed by 3 digits");
-//        }
-//        if (detail.getQuantity() <= 0) {
-//            errors.add("Quantity in order detail " + (index + 1) + " must be positive");
-//        }
-//        if (detail.getPrice() <= 0) {
-//            errors.add("Unit price in order detail " + (index + 1) + " must be positive");
-//        }
-//        return errors;
-//    }
+    public static List<String> validateOrder(OrderDTO order) {
+        List<String> errors = new ArrayList<>();
+
+        if (order.getOrderId() == null ||  !order.getOrderId().startsWith("O")) {
+            errors.add("Order ID must start with 'O' followed by 3 digits");
+        }
+
+        if (order.getCustomerId() == null || !order.getCustomerId().startsWith("C")) {
+            errors.add("Customer ID in order must start with 'C'");
+        }
+
+        if (order.getSubtotal() < 0) {
+            errors.add("Subtotal must be non-negative");
+        }
+
+        if (order.getDiscount() < 0 || order.getDiscount() > order.getSubtotal()) {
+            errors.add("Discount must be non-negative and not exceed subtotal");
+        }
+
+        if (order.getAmount_payed() < 0 || order.getAmount_payed() < (order.getSubtotal() - order.getDiscount())) {
+            errors.add("Amount paid must be non-negative and at least equal to (subtotal - discount)");
+        }
+
+        if (order.getOrderDetails() == null || order.getOrderDetails().isEmpty()) {
+            errors.add("Order must contain at least one order detail");
+        } else {
+            for (int i = 0; i < order.getOrderDetails().size(); i++) {
+                OrderDetailDTO detail = order.getOrderDetails().get(i);
+                errors.addAll(validateOrderDetail(detail, i));
+            }
+        }
+
+        return errors;
+    }
+
+    private static List<String> validateOrderDetail(OrderDetailDTO detail, int index) {
+        List<String> errors = new ArrayList<>();
+        if (detail.getItemId() == null ||  !detail.getItemId().startsWith("I")) {
+            errors.add("Item ID in order detail " + (index + 1) + " must start with 'I' followed by 3 digits");
+        }
+
+        if (detail.getQuantity() <= 0) {
+            errors.add("Quantity in order detail " + (index + 1) + " must be positive");
+        }
+
+        if (detail.getPrice() <= 0) {
+            errors.add("Unit price in order detail " + (index + 1) + " must be positive");
+        }
+        return errors;
+    }
 }
